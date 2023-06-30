@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* * {
+        border: solid 1px rebeccapurple;
+    } */
+    body {
+        background-image: url("https://www.exprto.com/images/Group%206454.svg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        justify-content: center;
+        align-items: center;
+        /* display: flex; */
+        background-position: center;
+        background-size: contain;
+        /* margin-top: 100px; */
+        /* margin-bottom: 100px; */
+    }
+
+    label {
+        margin: 8px;
+    }
+
+    input[type=text],
+    input[type=email] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=time],
+    input[type=date] {
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+
+
+    #form_portion {
+        background-color: black;
+        opacity: 90%;
+        color: white;
+        padding: 50px 50px;
+        border-radius: 15px;
+        margin: 0% 20%;
+        margin-top: 0px;
+    }
+
+    #time {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        background-color: orange;
+        font-weight: bold;
+        font-size: larger;
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+<body>
+    <div class="container">
+        <div id="form_portion">
+            <h2 style="text-align: center;">Book a call</h1>
+                <p style="text-align: center;">Book a call slot and our representative will call you within 1hr of
+                    selected time</p>
+                <label for="name">Name : </label>
+                <input type="text" name="name" id="name" placeholder="John">
+                <br>
+                <label for="surname">Surname : </label>
+                <input type="text" name="surname" id="surname" placeholder="Doe">
+                <br>
+                <label for="email">Email id : </label>
+                <input type="email" name="email" id="email" placeholder="johndoe@gmail.com"> <br>
+                <label for="number">Phone No. : </label>
+                <input type="text" name="number" id="number" placeholder="9876543210"> <br>
+                <label for="time">Time for call : </label>
+
+                <div id="time">
+
+                    <input type="date" name="date" id="date">
+                    <input type="time" name="time" id="timeInput" placeholder="00:00">
+                </div>
+
+                <button id="getcall">GET A CALL</button>
+        </div>
+
+
+        <script>
+            let body = document.body;
+            const getcall = document.querySelector("#getcall");
+            getcall.addEventListener('click', () => {
+                console.log(document.getElementById("name").value);
+                console.log(document.getElementById("surname").value);
+                console.log(document.getElementById("email").value);
+                console.log(document.getElementById("number").value);
+                console.log(document.getElementById("date").value)
+                console.log(document.getElementById("timeInput").value)
+            })
+        </script>
+    </div>
+</body>
+
+</html>
