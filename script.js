@@ -23,17 +23,17 @@ submit.addEventListener('click', storeValues);
 
 // }
 
+    let name = document.getElementById('name');
+    let surname = document.getElementById('surname');
+    let email = document.getElementById('email');
+    let number = document.getElementById('number');
+    let date = document.getElementById('date');
+    let time = document.getElementById('timeInput')
 
-// let name = document.getElementById('name').value.toString();
-// let surname = document.getElementById('surname').value.toString();
-// let email = document.getElementById('email').value.toString();
-// let number = document.getElementById('number').value.toString();
-// let date = document.getElementById('date').value.toString();
-// let time = document.getElementById('timeInput').value.toString()
 
 
 function storeValues() {
-    let obj = {
+    var obj = {
         name: document.getElementById('name').value,
         surname: document.getElementById('surname').value,
         email: document.getElementById('email').value,
@@ -46,6 +46,7 @@ function storeValues() {
     localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
 
 
+    //Delete Button
 
     let li = document.createElement('li')
     li.className = "list-group-item"
@@ -55,13 +56,23 @@ function storeValues() {
     li.appendChild(email);
     li.appendChild(text);
     ol.appendChild(li);
-    
+
     let deleteButton = document.createElement('button');
     deleteButton.id = 'deleteButton'
     deleteButton.textContent = "Delete"
     li.appendChild(deleteButton)
 
     deleteButton.addEventListener('click', deleteItem);
+
+
+    //Edit Button
+
+    let editButton = document.createElement('button');
+    editButton.id = "edit"
+    editButton.textContent = "Edit";
+    li.appendChild(editButton);
+
+    editButton.addEventListener('click', editForm);
 }
 
 
@@ -83,3 +94,26 @@ function deleteItem() {
     let item = deleteButton.parentElement;
     ol.removeChild(item);
 }
+
+function editForm() {
+    var obj = {
+        name: document.getElementById('name').value,
+        surname: document.getElementById('surname').value,
+        email: document.getElementById('email').value,
+        number: document.getElementById('number').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('timeInput').value
+    }
+
+    
+    name.textContent = obj.name;
+    surname.textContent = obj.surname;
+    email.textContent = obj.email;
+    number.textContent = obj.number;
+    date.textContent = obj.number;
+    time.textContent = obj.time;
+
+    deleteItem();
+}
+
+
