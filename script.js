@@ -45,19 +45,41 @@ function storeValues() {
     let obj_serialized = JSON.stringify(obj);
     localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
 
-    
+
 
     let li = document.createElement('li')
     li.className = "list-group-item"
-    li.textContent = obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + "Email Id : " + obj.email + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time;
 
+    let text = document.createTextNode(" " + obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time);
+    let email = document.createTextNode(obj.email);
+    li.appendChild(email);
+    li.appendChild(text);
     ol.appendChild(li);
     
+    let deleteButton = document.createElement('button');
+    deleteButton.id = 'deleteButton'
+    deleteButton.textContent = "Delete"
+    li.appendChild(deleteButton)
+
+    deleteButton.addEventListener('click', deleteItem);
 }
 
-let div = document.createElement('div');
+
+
 let ol = document.createElement('ol');
-    ol.className = "list-group list-group-numbered"
+ol.className = "list-group list-group-numbered"
+
+let div = document.createElement('div');
+
 let body = document.body;
 body.appendChild(div)
-div.appendChild(ol)
+div.appendChild(ol);
+
+function deleteItem() {
+    // e.preventDefault();
+    let email = ol.firstChild.firstChild.textContent; // Get the email value
+    localStorage.removeItem(email);
+
+    let item = deleteButton.parentElement;
+    ol.removeChild(item);
+}
