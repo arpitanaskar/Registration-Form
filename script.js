@@ -44,4 +44,20 @@ function storeValues() {
 
     let obj_serialized = JSON.stringify(obj);
     localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
+
+    
+
+    let li = document.createElement('li')
+    li.className = "list-group-item"
+    li.textContent = obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + "Email Id : " + obj.email + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time;
+
+    ol.appendChild(li);
+    
 }
+
+let div = document.createElement('div');
+let ol = document.createElement('ol');
+    ol.className = "list-group list-group-numbered"
+let body = document.body;
+body.appendChild(div)
+div.appendChild(ol)
