@@ -42,13 +42,19 @@ function storeValues() {
         time: document.getElementById('timeInput').value
     }
 
-    let obj_serialized = JSON.stringify(obj);
-    localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
-
+    // let obj_serialized = JSON.stringify(obj);
+    // localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
+    axios.post("https://crudcrud.com/api/0dc9a80fd1824970b846b489a02d5955/appointmentData", obj)
+        .then((response) => {
+            showResponse(response.data)
+            console.log(response)
+        })
+        .catch((err)=> console.log(err))
 
     //Delete Button
 
-    let li = document.createElement('li')
+    function showResponse(obj) {
+        let li = document.createElement('li')
     li.className = "list-group-item"
 
     let text = document.createTextNode(" " + obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time);
@@ -56,6 +62,7 @@ function storeValues() {
     li.appendChild(email);
     li.appendChild(text);
     ol.appendChild(li);
+}
 
     let deleteButton = document.createElement('button');
     deleteButton.id = 'deleteButton'
@@ -87,7 +94,7 @@ body.appendChild(div)
 div.appendChild(ol);
 
 function deleteItem() {
-    // e.preventDefault();
+    e.preventDefault();
     let email = ol.firstChild.firstChild.textContent; // Get the email value
     localStorage.removeItem(email);
 
