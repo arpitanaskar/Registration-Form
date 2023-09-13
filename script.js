@@ -1,38 +1,31 @@
 let submit = document.getElementById('getcall');
 submit.addEventListener('click', storeValues);
 
+window.addEventListener('DOMContentLoaded', () => {
+    axios.get("https://crudcrud.com/api/0dc9a80fd1824970b846b489a02d5955/appointmentData")
+        .then(response => {
+            console.log(response)
 
-// function storeValues() {
-//     let name = document.getElementById('name').value.toString();
-//     localStorage.setItem('Name', name)
+            for (let i = 0; i < response.data.length; i++) {
+                showResponse(response.data[i])
+            }
+        }
+        )
+        .catch(err => console.log(err))
+})
 
-//     let surname = document.getElementById('surname').value.toString();
-//     localStorage.setItem('Surname', surname)
 
-//     let email = document.getElementById('email').value.toString();
-//     localStorage.setItem('Email', email)
-
-//     let number = document.getElementById('number').value.toString();
-//     localStorage.setItem('Phone No.', number)
-
-//     let date = document.getElementById('date').value.toString();
-//     localStorage.setItem('Date', date)
-
-//     let time = document.getElementById('timeInput').value.toString();
-//     localStorage.setItem('Time for call', time)
-
-// }
-
-    let name = document.getElementById('name');
-    let surname = document.getElementById('surname');
-    let email = document.getElementById('email');
-    let number = document.getElementById('number');
-    let date = document.getElementById('date');
-    let time = document.getElementById('timeInput')
+let name = document.getElementById('name');
+let surname = document.getElementById('surname');
+let email = document.getElementById('email');
+let number = document.getElementById('number');
+let date = document.getElementById('date');
+let time = document.getElementById('timeInput')
 
 
 
 function storeValues() {
+
     var obj = {
         name: document.getElementById('name').value,
         surname: document.getElementById('surname').value,
@@ -49,12 +42,20 @@ function storeValues() {
             showResponse(response.data)
             console.log(response)
         })
-        .catch((err)=> console.log(err))
+        .catch((err) => console.log(err))
+
+
 
     //Delete Button
 
-    function showResponse(obj) {
-        let li = document.createElement('li')
+
+    
+}
+
+
+
+function showResponse(obj) {
+    let li = document.createElement('li')
     li.className = "list-group-item"
 
     let text = document.createTextNode(" " + obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time);
@@ -62,7 +63,6 @@ function storeValues() {
     li.appendChild(email);
     li.appendChild(text);
     ol.appendChild(li);
-}
 
     let deleteButton = document.createElement('button');
     deleteButton.id = 'deleteButton'
@@ -81,7 +81,6 @@ function storeValues() {
 
     editButton.addEventListener('click', editForm);
 }
-
 
 
 let ol = document.createElement('ol');
@@ -112,7 +111,7 @@ function editForm() {
         time: document.getElementById('timeInput').value
     }
 
-    
+
     name.textContent = obj.name;
     surname.textContent = obj.surname;
     email.textContent = obj.email;
