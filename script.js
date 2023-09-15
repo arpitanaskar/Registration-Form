@@ -2,12 +2,15 @@ let submit = document.getElementById('getcall');
 submit.addEventListener('click', storeValues);
 
 window.addEventListener('DOMContentLoaded', () => {
-    axios.get("https://crudcrud.com/api/0dc9a80fd1824970b846b489a02d5955/appointmentData")
+    axios.get("https://crudcrud.com/api/ee2059ca422a4e1bb55abd117dc5b833/appointmentData")
         .then(response => {
             console.log(response)
 
             for (let i = 0; i < response.data.length; i++) {
-                showResponse(response.data[i])
+                const itemId = response.data[i]._id;
+                console.log(`item ${i+1} ID: ${itemId}`)
+
+                showResponse(response.data[i], itemId)
             }
         }
         )
@@ -37,43 +40,43 @@ function storeValues() {
 
     // let obj_serialized = JSON.stringify(obj);
     // localStorage.setItem(document.getElementById('email').value.toString(), obj_serialized);
-    axios.post("https://crudcrud.com/api/0dc9a80fd1824970b846b489a02d5955/appointmentData", obj)
+    axios.post("https://crudcrud.com/api/ee2059ca422a4e1bb55abd117dc5b833/appointmentData", obj)
         .then((response) => {
-            showResponse(response.data)
+            showResponse(response.data, null)
             console.log(response)
         })
         .catch((err) => console.log(err))
-
-
-
-    //Delete Button
-
-
     
 }
 
 
 
-function showResponse(obj) {
+function showResponse(obj, itemId) {
     let li = document.createElement('li')
     li.className = "list-group-item"
 
+    
+    
     let text = document.createTextNode(" " + obj.name + " " + obj.surname + " ---> " + "Phone No. : " + obj.number + " ---> " + " ---> " + "Date : " + obj.date + " ---> " + "Time : " + obj.time);
     let email = document.createTextNode(obj.email);
     li.appendChild(email);
     li.appendChild(text);
     ol.appendChild(li);
 
+
+    //----DELETE BUTTON----//
     let deleteButton = document.createElement('button');
+    deleteButton.setAttribute('data-id', itemId || obj._id);
     deleteButton.id = 'deleteButton'
+    deleteButton.className = "delete"
     deleteButton.textContent = "Delete"
     li.appendChild(deleteButton)
+    deleteButton.addEventListener('click', function() {
+        deleteItem(this)
+    });
 
-    deleteButton.addEventListener('click', deleteItem);
 
-
-    //Edit Button
-
+   //----EDIT BUTTON----//
     let editButton = document.createElement('button');
     editButton.id = "edit"
     editButton.textContent = "Edit";
@@ -85,21 +88,26 @@ function showResponse(obj) {
 
 let ol = document.createElement('ol');
 ol.className = "list-group list-group-numbered"
-
+       
 let div = document.createElement('div');
 
 let body = document.body;
 body.appendChild(div)
 div.appendChild(ol);
 
-function deleteItem() {
-    e.preventDefault();
-    let email = ol.firstChild.firstChild.textContent; // Get the email value
-    localStorage.removeItem(email);
-
-    let item = deleteButton.parentElement;
-    ol.removeChild(item);
+function deleteItem(delBtn) {
+    const itemId = delBtn.getAttribute('data-id');
+    console.log(itemId);
+    axios.delete(`https://crudcrud.com/api/ee2059ca422a4e1bb55abd117dc5b833/appointmentData/${itemId}`)
+        .then((response) => {
+            // Handle success, you can remove the item from the DOM if needed
+            let deleteItem = delBtn.parentElement;
+            console.log(response)
+            ol.removeChild(deleteItem);
+        })
+        .catch((err) => console.log(err));
 }
+
 
 function editForm() {
     var obj = {
@@ -121,5 +129,3 @@ function editForm() {
 
     deleteItem();
 }
-
-
